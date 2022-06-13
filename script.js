@@ -7,21 +7,20 @@ const loader = document.getElementById('loader')
 
 let apiQuotes = [];
 
-//Show Loading
-const loading = () => {
+
+const showLoadingSpinner = () => {
   loader.hidden = false;
   quoteContainer.hidden = true;
 }
 
-//Hide Loading
-const complete = () => {
+const removeLoadingSpinner = () => {
   quoteContainer.hidden = false;
   loader.hidden = true;
 }
 
 // Show new Quote
 const newQuote = () => {
-  loading();
+  showLoadingSpinner();
   // Pick a random quote
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
   // Check Author field
@@ -38,12 +37,12 @@ const newQuote = () => {
   }
   // Set quote, hide loader
   quoteText.textContent = quote.text;
-  complete();
+  removeLoadingSpinner();
 }
 
 // Get Quotes From API
  const getQuotes = async () => {
-   loading();
+   showLoadingSpinner();
   const apiUrl = 'https://type.fit/api/quotes';
   try {
     const response = await fetch(apiUrl);
@@ -66,4 +65,3 @@ twitterBtn.addEventListener('click', tweetQuote);
 
 //On Load
 getQuotes();
-
